@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="referrer" content="no-referrer" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body hidden>
+    <div id="container" class="container">
+      <transition-group class="comments" name="comment" tag="div">
+        <div
+          v-for="(comment, index) in comments"
+          :class="getClassName(comment)"
+          :key="comment.data.id"
+          :style="getStyle(comment)"
+          :data-service="comment.service"
+          :data-user="comment.data.name"
+          :data-gift="comment.data.hasGift"
+          :data-owner="comment.data.isOwner"
+          :data-moderator="comment.data.isModerator"
+          :data-member="comment.data.isMember"
+          :data-is-new="comment.data.isFirstTime"
+          :data-service-name="comment.name"
+          :data-service-id="comment.id"
+          :data-paid="!!comment.data.paidText"
+        >
+          <div class="comment-block">
+            <div class="comment-body">
+              <div v-if="comment.data.paidText" class="paid-text">
+                <strong>{{comment.data.paidText}}</strong>
+              </div>
+              <div v-if="comment.data.membership" class="paid-text">
+                {{comment.data.membership.sub}} {{comment.data.membership.primary}}
+              </div>
+              <one-marquee>
+                <div class="comment-text" v-html="comment.data.comment"></div>
+              </one-marquee>
+            </div>
+            <div class="name">
+              {{comment.data.displayName}}
+              <div
+                class="badge"
+                v-for="(badge, index) in comment.data.badges"
+                :key="index"
+              >
+                <img
+                  v-if="badge.url"
+                  :alt="badge.label"
+                  :src="badge.url"
+                  :title="badge.label"
+                />
+                <span v-if="!badge.url">{{badge.label}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition-group>
+    </div>
+    <script src="./__origin/js/vue.global.prod.js"></script>
+    <script src="./__origin/js/escape-html-template-tag.js"></script>
+    <script src="./__origin/js/blcsdk.js"></script>
+    <script src="./__origin/js/one-adaptor.js"></script>
+    <script src="./__origin/js/one-marquee.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

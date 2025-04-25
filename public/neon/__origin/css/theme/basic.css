@@ -1,0 +1,7 @@
+:root {
+  --lcv-name-shadow: var(--lcv-name-shadow-1);
+  --lcv-comment-shadow: var(--lcv-comment-shadow-1);
+}
+.comment {
+  background-color: var(--lcv-background-color);
+}

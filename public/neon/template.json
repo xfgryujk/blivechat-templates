@@ -1,0 +1,8 @@
+{
+  "name": "neon",
+  "version": "7.2.0",
+  "author": "OneComme, xfgryujk",
+  "description": "横向滚动的评论栏，移植自OneComme预设模板。https://onecomme.com",
+  "thumbnail": "thumb.png",
+  "url": "index.html"
+}

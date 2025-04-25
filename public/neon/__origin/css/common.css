@@ -1,0 +1,113 @@
+@import url('./variable.css');
+
+html,
+body {
+  font-size: var(--lcv-font-size);
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 1.5;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body { background-color: rgba(0, 0, 0, 0); margin: 0px auto; overflow: hidden; }
+[hidden] {
+  display: none;
+}
+
+.container {
+  position: relative;
+  height: 100%;
+}
+.comments {
+  flex-direction: var(--lcv-direction);
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  box-sizing: border-box;
+}
+.comment {
+  display: flex;
+  padding: 8px;
+  flex: 0 0 auto;
+}
+.avatar {
+  position: relative;
+  min-width: var(--lcv-avatar-size);
+  width: var(--lcv-avatar-size);
+  height: var(--lcv-avatar-size);
+  border-radius: 100%;
+  margin-right: 8px;
+  overflow: hidden;
+  background: #eee;
+}
+.avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+.badge {
+  width: var(--lcv-badge-size);
+  height: var(--lcv-badge-size);
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+  margin-right: 4px;
+  border-radius: 100%;
+}
+.badge img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.badge span {
+  font-size: 0.8em;
+  line-height: 1.25;
+  display: block;
+  text-align: center;
+}
+.name {
+  font-weight: bold;
+  color: var(--lcv-name-color);
+  text-shadow: var(--lcv-name-shadow);
+}
+.comment-body {
+  position: relative;
+}
+.paid-text,
+.comment-text {
+  position: relative;
+  color: var(--lcv-text-color);
+  word-break: break-word;
+}
+.paid-text,
+[data-paid='true'] .comment-text {
+  text-shadow: var(--lcv-paid-shadow);
+}
+.comment-text {
+  text-shadow: var(--lcv-comment-shadow);
+}
+.comment-text img {
+  height: var(--lcv-image-size);
+  vertical-align: middle;
+  width: auto;
+}
+.comment-text .gift-image {
+  height: var(--lcv-gift-size);
+  vertical-align: middle;
+  width: auto;
+}
+.comment.comment-leave-active {
+  animation: none;
+}
+img {
+  position: relative;
+}
+img:before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+}

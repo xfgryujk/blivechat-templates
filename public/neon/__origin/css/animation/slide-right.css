@@ -1,0 +1,10 @@
+.comment-enter-active,
+.comment-leave-active {
+  transition: all var(--lcv-enter-duration) var(--lcv-enter-easing);
+}
+.comment-enter-from {
+  transform: translateX(100%) !important;
+}
+.comment-leave-to {
+  transform: translateX(-100%) !important;
+}

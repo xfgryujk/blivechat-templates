@@ -1,0 +1,7 @@
+.marquee-container {
+  position: relative;
+  overflow: hidden;
+}
+.marquee-content {
+  display: inline-block;
+}
