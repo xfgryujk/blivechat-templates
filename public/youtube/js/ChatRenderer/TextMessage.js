@@ -16,10 +16,6 @@
 function(constants, ImgShadow, AuthorChip) {
   const exports = {}
 
-  // HSL
-  const REPEATED_MARK_COLOR_START = [210, 100.0, 62.5]
-  const REPEATED_MARK_COLOR_END = [360, 87.3, 69.2]
-
   exports.default = {
     template: `
   <yt-live-chat-text-message-renderer :author-type="authorTypeText" :blc-guard-level="privilegeType">
@@ -42,9 +38,6 @@ function(constants, ImgShadow, AuthorChip) {
             :class="{ 'blc-large-emoji': content.height >= 100 }"
           >
         </template>
-        <el-badge :value="repeated" :max="99" v-if="repeated > 1" class="style-scope yt-live-chat-text-message-renderer"
-          :style="{ '--repeated-mark-color': repeatedMarkColor }"
-        ></el-badge>
       </span>
     </div>
   </yt-live-chat-text-message-renderer>
@@ -61,7 +54,6 @@ function(constants, ImgShadow, AuthorChip) {
       authorType: Number,
       contentParts: Array,
       privilegeType: Number,
-      repeated: Number
     },
     data() {
       return {
@@ -76,21 +68,6 @@ function(constants, ImgShadow, AuthorChip) {
       authorTypeText() {
         return constants.AUTHOR_TYPE_TO_TEXT[this.authorType]
       },
-      repeatedMarkColor() {
-        let color
-        if (this.repeated <= 2) {
-          color = REPEATED_MARK_COLOR_START
-        } else if (this.repeated >= 10) {
-          color = REPEATED_MARK_COLOR_END
-        } else {
-          color = [0, 0, 0]
-          let t = (this.repeated - 2) / (10 - 2)
-          for (let i = 0; i < 3; i++) {
-            color[i] = REPEATED_MARK_COLOR_START[i] + ((REPEATED_MARK_COLOR_END[i] - REPEATED_MARK_COLOR_START[i]) * t)
-          }
-        }
-        return `hsl(${color[0]}, ${color[1]}%, ${color[2]}%)`
-      }
     }
   }
 

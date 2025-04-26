@@ -26,7 +26,9 @@
   </head>
   <body>
     <div id="app">
-      <chat-renderer ref="renderer" :max-number="config.maxNumber" :show-gift-name="config.showGiftName"></chat-renderer>
+      <chat-renderer
+        ref="renderer" :max-number="config.maxNumber" :show-gift-name="config.showGiftName" :merge-gift="config.mergeGift"
+      ></chat-renderer>
     </div>
 
     <script src="./js/ChatRenderer/constants.js"></script>

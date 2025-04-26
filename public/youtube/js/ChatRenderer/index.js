@@ -50,7 +50,6 @@ function(_, constants, TextMessage, PaidMessage, MembershipItem, Ticker) {
                 :authorType="message.authorType"
                 :privilegeType="message.privilegeType"
                 :contentParts="getShowContentParts(message)"
-                :repeated="message.repeated"
               ></text-message>
               <paid-message :key="message.id" v-else-if="message.type === MESSAGE_TYPE_GIFT"
                 class="style-scope yt-live-chat-item-list-renderer"
@@ -94,6 +93,7 @@ function(_, constants, TextMessage, PaidMessage, MembershipItem, Ticker) {
     props: {
       maxNumber: Number,
       showGiftName: Boolean,
+      mergeGift: Boolean,
     },
     data() {
       return {
@@ -131,6 +131,37 @@ function(_, constants, TextMessage, PaidMessage, MembershipItem, Ticker) {
       getShowContentParts: constants.getShowContentParts,
       getShowAuthorName: constants.getShowAuthorName,
 
+      mergeSimilarGift(authorName, price, _totalFreeCoin, giftName, num) {
+        for (let message of this.iterRecentMessages(5)) {
+          if (
+            message.type === constants.MESSAGE_TYPE_GIFT
+            && message.authorName === authorName
+            && message.giftName === giftName
+          ) {
+            message.price += price
+            // message.totalFreeCoin += totalFreeCoin // 暂时没用到
+            message.num += num
+            return true
+          }
+        }
+        return false
+      },
+      // 从新到老迭代num条消息，注意不会迭代paidMessages
+      *iterRecentMessages(num) {
+        if (num <= 0) {
+          return
+        }
+      let arrs = [this.messagesBuffer, this.messages]
+      for (let arr of arrs) {
+          for (let i = arr.length - 1; i >= 0 && num > 0; i--, num--) {
+            let message = arr[i]
+            yield message
+          }
+          if (num <= 0) {
+            break
+          }
+        }
+      },
       clearMessages() {
         this.messages = []
         this.paidMessages = []
@@ -173,6 +204,13 @@ function(_, constants, TextMessage, PaidMessage, MembershipItem, Ticker) {
         this.$nextTick(this.maybeScrollToBottom)
       },
       handleAddMessage(message) {
+        let isMerged = false
+        if (message.type === constants.MESSAGE_TYPE_GIFT) {
+          if (this.mergeSimilarGift(message.authorName, message.price, message.totalFreeCoin, message.giftName, message.num)) {
+            isMerged = true
+          }
+        }
+
         // 添加一个本地时间给Ticker用，防止本地时间和服务器时间相差很大的情况
         message.addTime = new Date()
 
@@ -184,8 +222,10 @@ function(_, constants, TextMessage, PaidMessage, MembershipItem, Ticker) {
           }
         }
 
-        // 不知道cloneDeep拷贝Vue的响应式对象会不会有问题，保险起见把这句放在后面
-        this.messagesBuffer.push(message)
+        if (!isMerged) {
+          // 不知道cloneDeep拷贝Vue的响应式对象会不会有问题，保险起见把这句放在后面
+          this.messagesBuffer.push(message)
+        }
       },
       handleDelMessage({ id }) {
         let arrs = [this.messages, this.paidMessages, this.messagesBuffer]
