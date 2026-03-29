@@ -327,14 +327,21 @@ function(blcsdk, {default: html, safe}) {
 
   /** @param {typeof blcsdk.TextMsg} msg */
   function computeTextMsgCommentHtml(msg) {
-    let contentPartsHtml = msg.contentParts.map(part => {
+    let contentPartsHtml = []
+    if (msg.isMirror) {
+      contentPartsHtml.push('[跨房] ')
+    }
+    for (let part of msg.contentParts) {
+      let partHtml
       if (part.type === blcsdk.ContentPartType.TEXT) {
-        return html`${part.text}`
+        partHtml = html`${part.text}`
+      } else {
+        partHtml = html`<img
+          src="${part.url}" data-width="${safe(part.width)}" data-height="${safe(part.height)}" alt="${part.text}"
+        />`
       }
-      return html`<img
-        src="${part.url}" data-width="${safe(part.width)}" data-height="${safe(part.height)}" alt="${part.text}"
-      />`
-    })
+      contentPartsHtml.push(partHtml)
+    }
     if (msg.translation) {
       contentPartsHtml.push(html`（${msg.translation}）`)
     }

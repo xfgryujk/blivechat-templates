@@ -177,14 +177,21 @@ function(blcsdk) {
   }
 
   exports.getShowContentParts = function(message) {
-    let contentParts = [...message.contentParts]
+    let frontParts = []
+    if (message.isMirror) {
+      frontParts.push({
+        type: blcsdk.ContentPartType.TEXT,
+        text: '[跨房] '
+      })
+    }
+    let backParts = []
     if (message.translation) {
-      contentParts.push({
+      backParts.push({
         type: blcsdk.ContentPartType.TEXT,
         text: `（${message.translation}）`
       })
     }
-    return contentParts
+    return frontParts.concat(message.contentParts, backParts)
   }
 
   exports.getGiftShowContent = function(message, showGiftName) {
