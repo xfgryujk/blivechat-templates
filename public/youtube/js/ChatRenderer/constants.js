@@ -213,14 +213,22 @@ function(blcsdk) {
   }
 
   exports.getTimeTextHourMin = function(date) {
-    let hour = date.getHours()
+    let hour = `00${date.getHours()}`.slice(-2)
     let min = `00${date.getMinutes()}`.slice(-2)
     return `${hour}:${min}`
   }
 
   exports.formatCurrency = function(price) {
+    let minimumFractionDigits
+    if (price < 10) {
+      minimumFractionDigits = 2
+    } else if (price < 100) {
+      minimumFractionDigits = 1
+    } else {
+      minimumFractionDigits = 0
+    }
     return new Intl.NumberFormat('zh-CN', {
-      minimumFractionDigits: price < 100 ? 2 : 0
+      minimumFractionDigits
     }).format(price)
   }
 
