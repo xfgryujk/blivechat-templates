@@ -10,6 +10,14 @@
  * @param {typeof ChatRenderer.default} ChatRenderer
  */
 function(blcsdk, constants, ChatRenderer) {
+  // 导入自定义CSS
+  let urlParams = new URLSearchParams(window.location.search)
+  let customCssUrl = urlParams.get('css') || './css/custom.css'
+  let el = document.createElement('link')
+  el.rel = 'stylesheet'
+  el.href = customCssUrl
+  document.head.appendChild(el)
+
   new Vue({
     components: {
       ChatRenderer,
