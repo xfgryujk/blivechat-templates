@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="referrer" content="no-referrer">
+
+    <script src="./src/vendor/lodash.min.js"></script>
+    <script src="./src/vendor/vue.min.js"></script>
+    <script src="./src/vendor/blcsdk.js"></script>
+
+    <link rel="stylesheet" href="./css/youtube/yt-html.css">
+    <link rel="stylesheet" href="./css/youtube/yt-icon.css">
+    <link rel="stylesheet" href="./css/youtube/yt-img-shadow.css">
+    <link rel="stylesheet" href="./css/youtube/yt-live-chat-author-badge-renderer.css">
+    <link rel="stylesheet" href="./css/youtube/yt-live-chat-author-chip.css">
+    <link rel="stylesheet" href="./css/youtube/yt-live-chat-item-list-renderer.css">
+    <link rel="stylesheet" href="./css/youtube/yt-live-chat-membership-item-renderer.css">
+    <link rel="stylesheet" href="./css/youtube/yt-live-chat-paid-message-renderer.css">
+    <link rel="stylesheet" href="./css/youtube/yt-live-chat-renderer.css">
+    <link rel="stylesheet" href="./css/youtube/yt-live-chat-text-message-renderer.css">
+    <link rel="stylesheet" href="./css/youtube/yt-live-chat-ticker-paid-message-item-renderer.css">
+    <link rel="stylesheet" href="./css/youtube/yt-live-chat-ticker-renderer.css">
+
+    <link rel="stylesheet" href="./src/assets/main.css">
+    <link rel="stylesheet" href="./src/assets/custom.css">
+  </head>
+  <body>
+    <div id="app">
+      <chat-renderer
+        ref="renderer" :max-number="config.maxNumber" :show-gift-name="config.showGiftName" :merge-gift="config.mergeGift"
+      ></chat-renderer>
+    </div>
+
+    <script src="./src/ChatRenderer/constants.js"></script>
+    <script src="./src/ChatRenderer/ImgShadow.js"></script>
+    <script src="./src/ChatRenderer/AuthorBadge.js"></script>
+    <script src="./src/ChatRenderer/AuthorChip.js"></script>
+    <script src="./src/ChatRenderer/TextMessage.js"></script>
+    <script src="./src/ChatRenderer/PaidMessage.js"></script>
+    <script src="./src/ChatRenderer/MembershipItem.js"></script>
+    <script src="./src/ChatRenderer/Ticker.js"></script>
+    <script src="./src/ChatRenderer/index.js"></script>
+
+    <script src="./src/main.js"></script>
+  </body>
+</html>

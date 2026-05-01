@@ -1,0 +1,10 @@
+{
+  "name": "blivechat-style-de",
+  "private": true,
+  "scripts": {
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "vite": "^8.0.10"
+  }
+}
